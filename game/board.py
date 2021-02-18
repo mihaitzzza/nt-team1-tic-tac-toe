@@ -1,6 +1,5 @@
-import logging
+from .loggers import logger, file_logger
 
-logger = logging.getLogger(__name__)
 
 board_matrix = [
     [None, None, None],
@@ -30,7 +29,6 @@ def show(board):
     Print the board in console.
     :param board: The board configuration
     """
-    print('+---+---+---+')
     logger.info('+---+---+---+')
 
     for row_index, row_data in enumerate(board):
@@ -40,12 +38,9 @@ def show(board):
                 row_signs.append(row_index * len(board) + column_index + 1)
             else:
                 row_signs.append(column_data)
-        # print('row_signs', row_signs)  # ['x', 2, 'o']
         row_signs = str(row_signs)  # "['x', 2, 'o']"
         row_signs = row_signs.replace('[', '| ').replace(']', ' |').replace(',', ' |').replace("'", '')
-        print(row_signs)
         logger.info(row_signs)
-        print('+---+---+---+')
         logger.info('+---+---+---+')
 
 

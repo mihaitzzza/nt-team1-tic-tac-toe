@@ -1,0 +1,80 @@
+Welcome and good luck!
+Player 1 is your turn.
++---+---+---+
+| 1 | 2 | 3 |
++---+---+---+
+| 4 | 5 | 6 |
++---+---+---+
+| 7 | 8 | 9 |
++---+---+---+
+Pick a choice from available options: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+1
+Player choice: 1
+Player 2 is your turn.
++---+---+---+
+| x | 2 | 3 |
++---+---+---+
+| 4 | 5 | 6 |
++---+---+---+
+| 7 | 8 | 9 |
++---+---+---+
+Pick a choice from available options: [2, 3, 4, 5, 6, 7, 8, 9]
+2
+Player choice: 2
+Player 1 is your turn.
++---+---+---+
+| x | o | 3 |
++---+---+---+
+| 4 | 5 | 6 |
++---+---+---+
+| 7 | 8 | 9 |
++---+---+---+
+Pick a choice from available options: [3, 4, 5, 6, 7, 8, 9]
+3
+Player choice: 3
+Player 2 is your turn.
++---+---+---+
+| x | o | x |
++---+---+---+
+| 4 | 5 | 6 |
++---+---+---+
+| 7 | 8 | 9 |
++---+---+---+
+Pick a choice from available options: [4, 5, 6, 7, 8, 9]
+4
+Player choice: 4
+Player 1 is your turn.
++---+---+---+
+| x | o | x |
++---+---+---+
+| o | 5 | 6 |
++---+---+---+
+| 7 | 8 | 9 |
++---+---+---+
+Pick a choice from available options: [5, 6, 7, 8, 9]
+5
+Player choice: 5
+Player 2 is your turn.
++---+---+---+
+| x | o | x |
++---+---+---+
+| o | x | 6 |
++---+---+---+
+| 7 | 8 | 9 |
++---+---+---+
+Pick a choice from available options: [6, 7, 8, 9]
+6
+Player choice: 6
+Player 1 is your turn.
++---+---+---+
+| x | o | x |
++---+---+---+
+| o | x | o |
++---+---+---+
+| 7 | 8 | 9 |
++---+---+---+
+Pick a choice from available options: [7, 8, 9]
+7
+Player choice: 7
+Game Over!
+Player 1 has won the game.

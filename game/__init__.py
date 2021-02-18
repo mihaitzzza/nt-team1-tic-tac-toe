@@ -1,9 +1,7 @@
-import logging
 from .board import board_matrix as initial_board, get_options, show, set_choice
 from .status import check_status
 from .player import get_current_player
-
-logger = logging.getLogger(__name__)
+from .loggers import logger, file_logger
 
 
 def start():
@@ -19,37 +17,34 @@ def start():
     winner = None
     player_name = None
 
-    print('Welcome and good luck!')
     logger.info('Welcome and good luck!')
 
     while not is_over:
         if is_correct_choice:
             player_name, sign = get_current_player(step)
-            print('%s is your turn.' % player_name)
             logger.info('%s is your turn.' % player_name)
 
             available_options = get_options(board_matrix)
 
         show(board_matrix)
-        print('Pick a choice from available options: ', available_options)
         logger.info('Pick a choice from available options: %s' % available_options)
 
         choice = input('Pick your choice: ')
-        logger.info('Pick your choice: ')
+        file_logger.info(choice)
+
         try:
             choice = int(choice)
 
             if choice not in available_options:
                 raise ValueError()
         except ValueError as e:
-            print('Your choice is not an option.')
             logger.error('Your choice is not an option.')
             logger.exception(e)
             is_correct_choice = False
             continue
         else:
             is_correct_choice = True
-            logger.info('Player choice: %s' % choice)
+            file_logger.info('Player choice: %s' % choice)
 
         board_matrix = set_choice(board_matrix, choice, sign)
 
@@ -61,12 +56,9 @@ def start():
 
         step += 1
 
-    print('Game Over!')
     logger.info('Game Over!')
 
     if winner:
-        print(f'{winner} has won the game.')
         logger.info(f'{winner} has won the game.')
     else:
-        print('Game ended as a draw.')
         logger.info('Game ended as a draw.')
