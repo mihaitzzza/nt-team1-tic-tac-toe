@@ -3,32 +3,36 @@ from .status import check_status
 from .player import get_current_player
 import logging
 import random
+import copy
+
 
 logger = logging.getLogger(__name__)
 
 
-def _found_winning_cell(board_matrix, available_options):
+def _find_winning_cell(board_matrix, available_options, sign):
+    '''
+    Creates a copy of the current state of the board and tries all the available options with the sign argument
+    and checks if any choice wins, returns True or False if there is a winning choice, along with the the choice itself.
+    '''
+    is_won = False
+    choice = None
     for choice in available_options:
-        check_spots = [x[:] for x in board_matrix]
-        new_board = set_choice(check_spots, choice, 'o')
+        board_copy = copy.deepcopy(board_matrix)
+        new_board = set_choice(board_copy, choice, sign)
         is_won, _ = check_status(new_board)
         if is_won:
-            return True, choice
-    return False, None
+            break
+    return is_won, choice
 
-def _found_blocking_cell(board_matrix, available_options):
-    for choice in available_options:
-        check_spots = [x[:] for x in board_matrix]
-        new_board = set_choice(check_spots, choice, 'x')
-        is_won, _ = check_status(new_board)
-        if is_won:
-            return True, choice
-    return False, None
 
 def _check_cell(cell_number, board):
+    '''
+    returns the Data ('x', 'o' or None) from the given cell in the given board
+    '''
     row = int((cell_number-.5) // 3)
     col = (cell_number - row * 3) - 1
     return board[row][col]
+
 
 def _computer_move(available_options, board_matrix, last_move, difficulty):
     '''
@@ -45,23 +49,20 @@ def _computer_move(available_options, board_matrix, last_move, difficulty):
         return choice
 
     elif difficulty == 'medium':
-        found_cell, choice = _found_winning_cell(board_matrix, available_options)
+        found_cell, choice = _find_winning_cell(board_matrix, available_options, 'o')
         if found_cell:
             return choice
-        found_cell, choice = _found_blocking_cell(board_matrix, available_options)
+        found_cell, choice = _find_winning_cell(board_matrix, available_options, 'x')
         if found_cell:
             return choice
         return random.choice(available_options)
 
-
-    corners = [x for x in available_options if x % 2 == 1 and x != 5]
-    winning, choice = _found_winning_cell(board_matrix, available_options)
+    winning, choice = _find_winning_cell(board_matrix, available_options, 'o')
     if winning:
         return choice
-    blocking_needed, choice = _found_blocking_cell(board_matrix, available_options)
+    blocking_needed, choice = _find_winning_cell(board_matrix, available_options, 'x')
     if blocking_needed:
         return choice
-
 
     if last_move % 2 == 1 and last_move != 5:
         if 5 in available_options:
@@ -74,11 +75,16 @@ def _computer_move(available_options, board_matrix, last_move, difficulty):
     if last_move % 2 == 0:
         if 5 in available_options:
             return 5
+    corners = [x for x in available_options if x % 2 == 1 and x != 5]
+    try:
+        return random.choice(corners)
+    except:
+        return random.choice(available_options)
 
-    return random.choice(corners)
 
 def _player_move(board_matrix, available_options):
-    while True:
+    is_correct_choice = False
+    while not is_correct_choice:
         show(board_matrix)
         print('Pick a choice from available options: ', available_options)
         logger.info('Pick a choice from available options: %s' % available_options)
@@ -88,19 +94,18 @@ def _player_move(board_matrix, available_options):
         try:
             choice = int(choice)
             if choice not in available_options:
-                raise ValueError()
+                raise ValueError(f"Your choice '{choice}' is not an available option. ({available_options})")
+            is_correct_choice = True
         except ValueError as e:
             print('Your choice is not an option.')
             logger.error('Your choice is not an option.')
             logger.exception(e)
-            is_correct_choice = False
             continue
-        else:
-            is_correct_choice = True
-            logger.info('Player choice: %s' % choice)
-            return is_correct_choice, choice
+        logger.info('Player choice: %s' % choice)
+        return is_correct_choice, choice
 
-def play(cpu=False):
+
+def play(cpu=None):
     """
     This is the engine of the game.
     """
@@ -128,7 +133,6 @@ def play(cpu=False):
         else:
             is_correct_choice, choice = _player_move(board_matrix, available_options)
 
-
         board_matrix = set_choice(board_matrix, choice, sign)
         last_move = choice
 
@@ -139,12 +143,4 @@ def play(cpu=False):
             winner = player_name
         step += 1
 
-    print('Game Over!')
-    logger.info('Game Over!')
-
-    if winner:
-        print(f'{winner} has won the game.')
-        logger.info(f'{winner} has won the game.')
-    else:
-        print('Game ended as a draw.')
-        logger.info('Game ended as a draw.')
+    return winner

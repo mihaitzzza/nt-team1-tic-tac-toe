@@ -1,10 +1,13 @@
-from .modes import play
+from .modes import play, logger
+from .player import display_winner
+
 
 def main_menu():
     '''
     Displays main menu options
-    '''                                       
-    while True:     
+    '''            
+    selection = 0                           
+    while selection != '2':     
         print('\nMain Menu')
         print('----------')
         print('1. Play')  # play submenu function created below
@@ -14,15 +17,14 @@ def main_menu():
         if selection == '1':  # add an if check for the new menu added
             print('Selected Play')
             play_menu()  # call menu or feature function
-        elif selection == '2':
-            break
+
 
 def play_menu():
     '''
     Displays play menu options
     '''
-    on_play_menu = True   
-    while on_play_menu:
+    selection = '' 
+    while selection != '3':
         print('\nPlay')
         print('----------')
         print('1. Vs Player')
@@ -31,37 +33,32 @@ def play_menu():
         
         selection = input('>: ')
         if selection == '1':
-            play()  
-            on_play_menu = False
+            display_winner(play(), logger)  
 
         elif selection == '2':
             select_difficulty_menu()
-            on_play_menu = False
 
-        elif selection == '3':
-            on_play_menu = False
 
 def select_difficulty_menu():
     '''
     Displays CPU difficulties to choose from
     '''
-    on_difficulty_menu = True
-    while on_difficulty_menu:
+    selection = 0
+    while selection != '4':
         print('\nChoose difficulty')
         print('----------')
         print('1. Easy')
         print('2. Medium')
         print('3. Hard')
+        print('4. Go back')
 
         selection = input('>: ')
         if selection == '1':
-            play(cpu='easy')
-            on_difficulty_menu = False
-
+            display_winner(play(cpu='easy'), logger)
+            break
         elif selection == '2':
-            play(cpu='medium')
-            on_difficulty_menu = False
-
+            display_winner(play(cpu='medium'), logger)
+            break
         elif selection == '3':
-            play(cpu='hard')
-            on_difficulty_menu = False
+            display_winner(play(cpu='hard'), logger)
+            break

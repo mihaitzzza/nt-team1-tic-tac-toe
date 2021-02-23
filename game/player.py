@@ -8,10 +8,22 @@ def get_current_player(step, cpu):
         name = 'Player 1'
         sign = 'x'
     else:
+        sign = 'o'
         if not cpu:
             name = 'Player 2'
         else:
             name = 'CPU'
-        sign = 'o'
 
     return name, sign
+
+
+def display_winner(winner, logger):
+    print('Game Over!')
+    logger.info('Game Over!')
+
+    if winner:
+        print(f'{winner} has won the game.')
+        logger.info(f'{winner} has won the game.')
+    else:
+        print('Game ended as a draw.')
+        logger.info('Game ended as a draw.')
