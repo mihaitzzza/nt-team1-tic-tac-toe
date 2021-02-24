@@ -33,7 +33,8 @@ def play_menu():
         
         selection = input('>: ')
         if selection == '1':
-            display_winner(play(), logger)  
+            game_winner = play()
+            display_winner(game_winner, logger)  
 
         elif selection == '2':
             select_difficulty_menu()
@@ -54,11 +55,14 @@ def select_difficulty_menu():
 
         selection = input('>: ')
         if selection == '1':
-            display_winner(play(cpu='easy'), logger)
+            game_winner = play(cpu='easy')
+            display_winner(game_winner, logger)
             break
         elif selection == '2':
-            display_winner(play(cpu='medium'), logger)
+            game_winner = play(cpu='medium')
+            display_winner(game_winner, logger)
             break
         elif selection == '3':
-            display_winner(play(cpu='hard'), logger)
+            game_winner = play(cpu='hard')
+            display_winner(game_winner, logger)
             break

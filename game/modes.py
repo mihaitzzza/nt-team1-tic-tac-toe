@@ -1,4 +1,4 @@
-from .board import board_matrix as initial_board, get_options, show, set_choice
+from .board import board_matrix as initial_board, get_options, show, update_board
 from .status import check_status
 from .player import get_current_player
 import logging
@@ -18,7 +18,7 @@ def _find_winning_cell(board_matrix, available_options, sign):
     choice = None
     for choice in available_options:
         board_copy = copy.deepcopy(board_matrix)
-        new_board = set_choice(board_copy, choice, sign)
+        new_board = update_board(board_copy, choice, sign)
         is_won, _ = check_status(new_board)
         if is_won:
             break
@@ -133,7 +133,7 @@ def play(cpu=None):
         else:
             is_correct_choice, choice = _player_move(board_matrix, available_options)
 
-        board_matrix = set_choice(board_matrix, choice, sign)
+        board_matrix = update_board(board_matrix, choice, sign)
         last_move = choice
 
         # Check if the game is won or not.

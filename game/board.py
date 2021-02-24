@@ -51,7 +51,7 @@ def show(board):
         logger.info('+---+---+---+')
 
 
-def set_choice(board, choice, sign):
+def update_board(board, choice, sign):
     new_board = copy.deepcopy(board)
 
     for row_index, row_data in enumerate(board):
