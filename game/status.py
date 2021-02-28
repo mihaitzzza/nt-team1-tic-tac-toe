@@ -1,3 +1,5 @@
+import copy
+
 def check_winning_sequence(sequence):
     """
     Checks for winning sequence.
@@ -48,7 +50,6 @@ def check_winner(board_matrix):
 
     return is_won
 
-
 def check_status(board_matrix):
     """
     Check if the game is won or is over.
@@ -59,6 +60,7 @@ def check_status(board_matrix):
 
     if is_won:
         is_over = True
+        copy.deepcopy(new_board)
     else:
         is_over = True
 

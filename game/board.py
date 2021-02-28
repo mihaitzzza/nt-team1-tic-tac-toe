@@ -1,4 +1,5 @@
 import logging
+import copy
 
 logger = logging.getLogger(__name__)
 
@@ -7,7 +8,6 @@ board_matrix = [
     [None, None, None],
     [None, None, None],
 ]
-
 
 def get_options(board):
     """
