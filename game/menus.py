@@ -6,7 +6,7 @@ def main_menu():
     '''
     Displays main menu options
     '''            
-    selection = 0                           
+    selection = ''                           
     while selection != '2':     
         print('\nMain Menu')
         print('----------')
@@ -44,7 +44,7 @@ def select_difficulty_menu():
     '''
     Displays CPU difficulties to choose from
     '''
-    selection = 0
+    selection = ''
     while selection != '4':
         print('\nChoose difficulty')
         print('----------')

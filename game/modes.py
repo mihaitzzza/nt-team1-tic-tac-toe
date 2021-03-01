@@ -76,10 +76,7 @@ def _computer_move(available_options, board_matrix, last_move, difficulty):
         if 5 in available_options:
             return 5
     corners = [x for x in available_options if x % 2 == 1 and x != 5]
-    try:
-        return random.choice(corners)
-    except:
-        return random.choice(available_options)
+    return random.choice(corners or available_options)
 
 
 def _player_move(board_matrix, available_options):
