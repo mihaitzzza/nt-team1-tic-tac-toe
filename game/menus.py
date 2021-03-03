@@ -3,9 +3,9 @@ from .player import display_winner
 
 
 def main_menu():
-    '''
+    """
     Displays main menu options
-    '''            
+    """           
     selection = ''                           
     while selection != '2':     
         print('\nMain Menu')
@@ -20,9 +20,9 @@ def main_menu():
 
 
 def play_menu():
-    '''
+    """
     Displays play menu options
-    '''
+    """
     selection = '' 
     while selection != '3':
         print('\nPlay')
@@ -41,9 +41,9 @@ def play_menu():
 
 
 def select_difficulty_menu():
-    '''
+    """
     Displays CPU difficulties to choose from
-    '''
+    """
     selection = ''
     while selection != '4':
         print('\nChoose difficulty')

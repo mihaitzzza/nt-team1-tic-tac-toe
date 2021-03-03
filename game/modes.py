@@ -9,11 +9,12 @@ import copy
 logger = logging.getLogger(__name__)
 
 
-def _find_winning_cell(board_matrix, available_options, sign):
-    '''
-    Creates a copy of the current state of the board and tries all the available options with the sign argument
-    and checks if any choice wins, returns True or False if there is a winning choice, along with the the choice itself.
-    '''
+def find_winning_cell(board_matrix, available_options, sign):
+    """
+    Creates a copy of the current state of the board and tries all the available options with the sign argument.
+    Checks if any choice wins.
+    returns True or False if there is a winning choice, along with the the choice itself.
+    """
     is_won = False
     choice = None
     for choice in available_options:
@@ -25,17 +26,17 @@ def _find_winning_cell(board_matrix, available_options, sign):
     return is_won, choice
 
 
-def _check_cell(cell_number, board):
-    '''
+def check_cell(cell_number, board):
+    """
     returns the Data ('x', 'o' or None) from the given cell in the given board
-    '''
+    """
     row = int((cell_number-.5) // 3)
     col = (cell_number - row * 3) - 1
     return board[row][col]
 
 
-def _computer_move(available_options, board_matrix, last_move, difficulty):
-    '''
+def computer_move(available_options, board_matrix, last_move, difficulty):
+    """
     difficulties: 'easy' picks randomly from the available options
     'medium' checks to for a winning move for itself, or blocks player from winning on next move. 
     if there is no winning move next move, it chooses a random available option
@@ -43,24 +44,24 @@ def _computer_move(available_options, board_matrix, last_move, difficulty):
     if there is no winning or blocking move
     
     return:: choice
-    '''
+    """
     if difficulty == 'easy':
         choice = random.choice(available_options)
         return choice
 
     elif difficulty == 'medium':
-        found_cell, choice = _find_winning_cell(board_matrix, available_options, 'o')
+        found_cell, choice = find_winning_cell(board_matrix, available_options, 'o')
         if found_cell:
             return choice
-        found_cell, choice = _find_winning_cell(board_matrix, available_options, 'x')
+        found_cell, choice = find_winning_cell(board_matrix, available_options, 'x')
         if found_cell:
             return choice
         return random.choice(available_options)
 
-    winning, choice = _find_winning_cell(board_matrix, available_options, 'o')
+    winning, choice = find_winning_cell(board_matrix, available_options, 'o')
     if winning:
         return choice
-    blocking_needed, choice = _find_winning_cell(board_matrix, available_options, 'x')
+    blocking_needed, choice = find_winning_cell(board_matrix, available_options, 'x')
     if blocking_needed:
         return choice
 
@@ -68,7 +69,7 @@ def _computer_move(available_options, board_matrix, last_move, difficulty):
         if 5 in available_options:
             return 5
         opposite_corner = 10 - last_move
-        if _check_cell(opposite_corner, board_matrix) == 'x':     
+        if check_cell(opposite_corner, board_matrix) == 'x':     
             for choice in available_options:
                 if choice % 2 == 0:
                     return choice
@@ -79,7 +80,7 @@ def _computer_move(available_options, board_matrix, last_move, difficulty):
     return random.choice(corners or available_options)
 
 
-def _player_move(board_matrix, available_options):
+def player_move(board_matrix, available_options):
     is_correct_choice = False
     while not is_correct_choice:
         show(board_matrix)
@@ -126,9 +127,9 @@ def play(cpu=None):
 
             available_options = get_options(board_matrix)
         if player_name == 'CPU':
-            choice = _computer_move(available_options, board_matrix, last_move, cpu)
+            choice = computer_move(available_options, board_matrix, last_move, cpu)
         else:
-            is_correct_choice, choice = _player_move(board_matrix, available_options)
+            is_correct_choice, choice = player_move(board_matrix, available_options)
 
         board_matrix = update_board(board_matrix, choice, sign)
         last_move = choice
