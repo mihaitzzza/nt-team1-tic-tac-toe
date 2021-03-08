@@ -1,4 +1,6 @@
 import logging
+import copy
+
 
 logger = logging.getLogger(__name__)
 
@@ -49,11 +51,11 @@ def show(board):
         logger.info('+---+---+---+')
 
 
-def set_choice(board, choice, sign):
-    new_board = board.copy()
+def update_board(board, choice, sign):
+    new_board = copy.deepcopy(board)
 
     for row_index, row_data in enumerate(board):
-        for column_index, column_data in enumerate(row_data):
+        for column_index, _ in enumerate(row_data):
             if (row_index * len(board) + column_index + 1) == choice:
                 new_board[row_index][column_index] = sign
 
