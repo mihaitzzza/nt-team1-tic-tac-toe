@@ -3,7 +3,7 @@ from game.status import check_status
 from game.player import get_current_player
 from game.loggers import get_logger
 
-logger = get_logger(__name__)
+logger, file_logger = get_logger(__name__)
 
 
 def start():
@@ -32,7 +32,7 @@ def start():
         logger.info('Pick a choice from available options: %s' % available_options)
 
         choice = input('Pick your choice: ')
-        logger.info(choice)
+        file_logger.info(f"{player_name} typed {choice}")
 
         try:
             choice = int(choice)
@@ -46,7 +46,7 @@ def start():
             continue
         else:
             is_correct_choice = True
-            logger.info('Player choice: %s' % choice)
+            file_logger.info('Player choice: %s' % choice)
 
         board_matrix = set_choice(board_matrix, choice, sign)
 

@@ -21,4 +21,8 @@ def get_logger(module_name=__name__):
     file_log_output.setFormatter(log_format)
     logger.addHandler(file_log_output)
 
-    return logger
+    file_logger = logging.getLogger('file %s' % module_name)
+    file_logger.setLevel(log_level)
+    file_logger.addHandler(file_log_output)
+
+    return logger, file_logger

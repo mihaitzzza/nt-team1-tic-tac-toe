@@ -1,0 +1,10 @@
+2021-03-08 21:43:16 - INFO - game.base: Welcome and good luck!
+2021-03-08 21:43:16 - INFO - game.base: Player 1 is your turn.
+2021-03-08 21:43:16 - INFO - game.board: +---+---+---+
+2021-03-08 21:43:16 - INFO - game.board: | 1 | 2 | 3 |
+2021-03-08 21:43:16 - INFO - game.board: +---+---+---+
+2021-03-08 21:43:16 - INFO - game.board: | 4 | 5 | 6 |
+2021-03-08 21:43:16 - INFO - game.board: +---+---+---+
+2021-03-08 21:43:16 - INFO - game.board: | 7 | 8 | 9 |
+2021-03-08 21:43:16 - INFO - game.board: +---+---+---+
+2021-03-08 21:43:16 - INFO - game.base: Pick a choice from available options: [1, 2, 3, 4, 5, 6, 7, 8, 9]
