@@ -1,4 +1,6 @@
-from .loggers import logger, file_logger
+from game.loggers import get_logger
+
+logger, file_logger = get_logger(__name__)
 
 
 board_matrix = [
